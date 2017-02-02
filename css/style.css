@@ -20,11 +20,35 @@ body {
   justify-content: space-around;
   flex-wrap: wrap; }
   .launches .launch {
+    display: flex;
+    flex-wrap: wrap;
     width: calc(50% - 1rem);
     padding: 0.5rem 1rem;
     margin: 0.5rem;
     color: #e6e6e6;
     border-radius: 4px;
     box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.2), 0 4px 16px 0 rgba(0, 0, 0, 0.19) !important; }
+    .launches .launch p {
+      margin: 0.5rem 0; }
+    .launches .launch .top-info {
+      display: flex;
+      justify-content: space-between;
+      width: 100%; }
+    .launches .launch .agency {
+      font-size: 0.8rem;
+      width: 60%; }
+    .launches .launch .webcast {
+      font-size: 0.8rem;
+      width: 40%;
+      text-align: right; }
+    .launches .launch h3 {
+      margin: 5px 0;
+      padding: 0;
+      font-size: 1em; }
+    .launches .launch .rocket {
+      width: 40%; }
+    .launches .launch .mission {
+      width: 60%;
+      text-align: right; }
 
 /*# sourceMappingURL=style.css.map */
