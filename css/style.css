@@ -1,6 +1,12 @@
 * {
   box-sizing: border-box; }
 
+.net {
+  background-color: #5B709F; }
+
+.confirmed {
+  background-color: #0F2555; }
+
 body {
   margin: 0;
   padding: 0; }
@@ -17,7 +23,6 @@ body {
     width: calc(50% - 1rem);
     padding: 0.5rem 1rem;
     margin: 0.5rem;
-    background-color: #5B709F;
     color: #e6e6e6;
     border-radius: 4px;
     box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.2), 0 4px 16px 0 rgba(0, 0, 0, 0.19) !important; }

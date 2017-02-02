@@ -14,7 +14,7 @@ function getLaunches(data){
 		var net = data.launches[i].net,
 			rocket = data.launches[i].rocket.name;
 
-		$('.launches').append('<div class="launch">' + rocket + ': ' + net + '</div>');
+		$('.launches').append('<div class="launch net">' + rocket + ': ' + net + '</div>');
 		
 	}
 }
