@@ -21,7 +21,7 @@ function getLaunches(data){
 			missionname = name.split(" | ");
 			rocket = missionname[0].replace(/Full Thrust/g, 'FT'),
 			mission = missionname[1];
-			
+			 
 						
 		
 		if(data.launches[i].rocket.agencies.length){
@@ -70,8 +70,7 @@ function getLaunches(data){
 			webcast = 'Webcast Unavailable';
 		}
 
-
-		$('.launches').append('<div id="' + id + '" class="launch net"><div class="top-info"><p class="agency">'
+		$('.launches').append('<div id="' + id + '" class="launch net ' + agency.toLowerCase() + '"><div class="top-info"><p class="agency">'
 			+ agency + '</p><p class="webcast">' + webcast + '</p></div><h3 class="rocket">' + rocket + '</h3><h3 class="mission">'
 			+ mission + '</h3><p class="date">' + net + '</p></div>');
 		
