@@ -1,3 +1,8 @@
+String.prototype.indexOfEnd = function(string) {
+    var io = this.indexOf(string);
+    return io == -1 ? -1 : io + string.length;
+}
+
 $('#container').append('<div class="launches"></div>');
 
 $.ajax({
@@ -13,17 +18,20 @@ function getLaunches(data){
 	var launchString;
 	for(var i=0; i<data.launches.length; i++){
 		//Define Variables from Launch Library data
-		var agency,
+		var currentYear = new Date().getFullYear().toString(),
+			agency,
 			webcast,
 			id = data.launches[i].id,
 			net = data.launches[i].net,
+			date = net.substring(0, net.indexOfEnd(currentYear)),
 			name = data.launches[i].name,
 			missionname = name.split(" | ");
 			rocket = missionname[0].replace(/Full Thrust/g, 'FT'),
-			mission = missionname[1];
-			 
-						
+			mission = missionname[1],
+			pad = data.launches[i].location.pads[0].name;
+
 		
+		//Format Launch Agency
 		if(data.launches[i].rocket.agencies.length){
 			if(data.launches[i].rocket.agencies[0].name === 'Lockheed Martin'){
 				agency = 'ULA';
@@ -64,15 +72,49 @@ function getLaunches(data){
 			agency = '';
 		}	
 
+		//Format Webcast Link
 		if(data.launches[i].vidURLs.length){
 			webcast = '<a href="' + data.launches[i].vidURLs[0] + '" target="_blank">Watch Webcast</a>';
 		}else {
 			webcast = 'Webcast Unavailable';
 		}
 
+		
+		var localTimeStart = new Date(data.launches[i].westamp * 1000);
+		var hr = localTimeStart.getHours();
+		var min = localTimeStart.getMinutes();
+		if(min<10) {
+			min='0'+min
+		}
+
+		function window(hr, min){
+			if(data.launches[i].westamp === 0){
+				return 'TBD';
+			}else{
+				if(hr<12){
+					if(hr === 0){
+						console.log(hr);
+						return (hr+12) + ':' + min + ' am';
+					}else{
+						return hr + ':' + min + ' am';
+					}
+				}else {
+					return (hr-12) + ':' + min + ' pm';
+				}
+			}
+		}
+		// window(hr, min);
+
+		// if(data.launches[i].westamp > 0){
+		// 	console.log(hr + ':' + min);
+		// }else{
+		// 	console.log('net');
+		// }
+
+		//Compile and append launch info
 		$('.launches').append('<div id="' + id + '" class="launch net ' + agency.toLowerCase() + '"><div class="top-info"><p class="agency">'
-			+ agency + '</p><p class="webcast">' + webcast + '</p></div><h3 class="rocket">' + rocket + '</h3><h3 class="mission">'
-			+ mission + '</h3><p class="date">' + net + '</p></div>');
+			+ agency + '</p><p class="webcast tar">' + webcast + '</p></div><h3 class="rocket">' + rocket + '</h3><h3 class="mission tar">'
+			+ mission + '</h3><p class="date">' + date + '</p><p class="time tar">' + window(hr, min) + '</p><p class="pad">' + pad + '</p></div>');
 		
 
 		// launchString += '<div class="launch net">';

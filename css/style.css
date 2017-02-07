@@ -15,6 +15,9 @@ body {
   width: 100%;
   margin: 0; }
 
+.tar {
+  text-align: right; }
+
 .launches {
   display: flex;
   justify-content: space-around;
@@ -39,8 +42,7 @@ body {
       width: 60%; }
     .launches .launch .webcast {
       font-size: 0.8rem;
-      width: 40%;
-      text-align: right; }
+      width: 40%; }
     .launches .launch h3 {
       margin: 5px 0;
       padding: 0;
@@ -48,7 +50,10 @@ body {
     .launches .launch .rocket {
       width: 40%; }
     .launches .launch .mission {
-      width: 60%;
-      text-align: right; }
+      width: 60%; }
+    .launches .launch .date {
+      width: 70%; }
+    .launches .launch .time {
+      width: 30%; }
 
 /*# sourceMappingURL=style.css.map */
