@@ -5,10 +5,28 @@
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <title>API testing</title>
         <link rel="stylesheet" href="/css/style.css">
+        <script src="https://use.typekit.net/jzh5twn.js"></script>
+        <script>try{Typekit.load({ async: true });}catch(e){}</script>
     </head>
     <body>
       <div id="container">
-
+        <section id="sort-launches" class="sort-launches">
+            <p class="sort-label"> Sort: </p>
+            <button id="all" class="on all sort-button">All</button>
+            <button id="confirmed" class="sort-button">Confirmed</button>
+            <button id="spacex" class="sort-button">SpaceX</button>
+            <button id="ula" class="sort-button">ULA</button>
+            <button id="arianespace" class="sort-button">Arianespace</button>
+            <button id="orbital" class="sort-button">Orbital ATK</button>
+            <button id="mitsubishi" class="sort-button">Mitsubishi</button>
+            <button id="russia" class="sort-button">Russia</button>
+            <button id="china" class="sort-button">China</button>
+            <button id="india" class="sort-button">India</button>
+            <button id="nasa" class="sort-button">NASA</button>
+            <button id="iss" class="sort-button">ISS</button>
+            <button id="rocket" class="sort-button">Rocket Lab</button>
+        </section>
+        <article class="launches"></article>
       </div>
         <script
           src="https://code.jquery.com/jquery-3.1.1.min.js"

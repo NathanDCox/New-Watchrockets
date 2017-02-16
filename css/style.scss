@@ -1,6 +1,7 @@
 $net: #5B709F;
 $main: #0F2555;
 $text: #e6e6e6;
+$hover: #B5C1DC;
 
 * {
 	box-sizing: border-box;
@@ -16,6 +17,7 @@ $text: #e6e6e6;
 body{
 	margin: 0;
 	padding: 0;
+  font-family: "niveau-grotesk", sans-serif;
 }
 #container {
 	width: 100%;
@@ -25,10 +27,41 @@ body{
   text-align: right;
 }
 
+//Sort bar
+.sort-launches {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  button {
+    margin: 0 10px;
+    font-size: 1rem;
+    padding: 7px 10px 5px 10px;
+    border: none;
+    background-color: #DFE4E9;
+    color: $main;
+    border: 1px solid $main;
+    border-radius: 3px;
+    outline: none;
+    cursor: pointer;
+    &:hover{
+      background-color: $main;
+      color: #DFE4E9;
+    }
+  }
+}
+
+button.on {
+  color: #fff;
+  background-color: #0F2555;
+}
+
+//Launch Display styles
 .launches {
 	display: flex;
 	justify-content: space-around;
 	flex-wrap: wrap;
+  max-width: 1600px;
+  margin: 0 auto;
 	.launch {
 		display: flex;
 		flex-wrap: wrap;
@@ -51,8 +84,21 @@ body{
   			width: 60%;
   		}
   		.webcast {
-  			font-size: 0.8rem;
   			width: 40%;
+        &.noVid {
+          font-size: 0.8rem;
+        }
+        a {
+          text-decoration: none;
+          color: $text;
+          &:hover {
+            color: $hover;
+          }
+        }
+        a img{
+          height: 1rem;
+          margin-right: 0.5rem;
+        }
   		}
   		h3 {
   			margin: 5px 0;

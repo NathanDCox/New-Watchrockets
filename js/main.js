@@ -1,9 +1,8 @@
+//custom method
 String.prototype.indexOfEnd = function(string) {
     var io = this.indexOf(string);
     return io == -1 ? -1 : io + string.length;
 }
-
-$('#container').append('<div class="launches"></div>');
 
 $.ajax({
 	url: 'https://launchlibrary.net/1.2/launch?next=50&mode=verbose',
@@ -21,6 +20,7 @@ function getLaunches(data){
 		var currentYear = new Date().getFullYear().toString(),
 			agency,
 			webcast,
+			status,
 			id = data.launches[i].id,
 			net = data.launches[i].net,
 			date = net.substring(0, net.indexOfEnd(currentYear)),
@@ -29,7 +29,6 @@ function getLaunches(data){
 			rocket = missionname[0].replace(/Full Thrust/g, 'FT'),
 			mission = missionname[1],
 			pad = data.launches[i].location.pads[0].name;
-
 		
 		//Format Launch Agency
 		if(data.launches[i].rocket.agencies.length){
@@ -70,16 +69,25 @@ function getLaunches(data){
 			agency = 'Blue Origin';
 		}else{
 			agency = '';
-		}	
+		}
+
+		//format agency for className
+		var agencyClass;
+		if(agency.indexOf(' ') === -1){
+			agencyClass = agency;
+		}else{
+			agencyClass = agency.substring(0, agency.indexOf(' '));
+		}
+		console.log(agencyClass);
 
 		//Format Webcast Link
 		if(data.launches[i].vidURLs.length){
-			webcast = '<a href="' + data.launches[i].vidURLs[0] + '" target="_blank">Watch Webcast</a>';
+			webcast = '<p class="webcast tar"><a href="' + data.launches[i].vidURLs[0] + '" target="_blank"><img src="img/rocket.svg">Watch Webcast</a></p>';
 		}else {
-			webcast = 'Webcast Unavailable';
+			webcast = '<p class="webcast tar noVid">Webcast Unavailable</p>';
 		}
 
-		
+		//define variables for time, formatted in user's timezone
 		var localTimeStart = new Date(data.launches[i].westamp * 1000);
 		var hr = localTimeStart.getHours();
 		var min = localTimeStart.getMinutes();
@@ -87,13 +95,13 @@ function getLaunches(data){
 			min='0'+min
 		}
 
+		//format launch window time
 		function window(hr, min){
 			if(data.launches[i].westamp === 0){
 				return 'TBD';
 			}else{
 				if(hr<12){
 					if(hr === 0){
-						console.log(hr);
 						return (hr+12) + ':' + min + ' am';
 					}else{
 						return hr + ':' + min + ' am';
@@ -103,27 +111,55 @@ function getLaunches(data){
 				}
 			}
 		}
-		// window(hr, min);
 
-		// if(data.launches[i].westamp > 0){
-		// 	console.log(hr + ':' + min);
-		// }else{
-		// 	console.log('net');
-		// }
+		function statusCheck(){
+			if(data.launches[i].westamp === 0){
+				status = 'net';
+			}else {
+				status = 'confirmed';
+			}
+		}statusCheck();
 
 		//Compile and append launch info
-		$('.launches').append('<div id="' + id + '" class="launch net ' + agency.toLowerCase() + '"><div class="top-info"><p class="agency">'
-			+ agency + '</p><p class="webcast tar">' + webcast + '</p></div><h3 class="rocket">' + rocket + '</h3><h3 class="mission tar">'
-			+ mission + '</h3><p class="date">' + date + '</p><p class="time tar">' + window(hr, min) + '</p><p class="pad">' + pad + '</p></div>');
-		
-
-		// launchString += '<div class="launch net">';
-		// launchString += '<div class="top-info"><p class="agency">' + agency + '</p></div>';
-		// launchString += '<h3 class="rocket">' + rocket + '</h3>';
-		// launchString += '<h3 class="mission">' + mission + '</h3>';
-		// launchString += '<p class="date">' + net + '</p>';
-		// launchString += '</div>';
-		
+		$('.launches').append('<section id="' + id + '" class="launch ' + status + ' ' + agencyClass.toLowerCase() + '"><div class="top-info"><p class="agency">'
+			+ agency + '</p>' + webcast + '</div><h3 class="rocket">' + rocket + '</h3><h3 class="mission tar">'
+			+ mission + '</h3><p class="date">' + date + '</p><p class="time tar">' + window(hr, min) + '</p><p class="pad">' + pad + '</p></section>');	
 	}
-	//$('.launches').append(launchString);
+
+	//called after all launches displayed
+	sortLaunches();
 }
+
+//Sort launches by toggle buttons
+function sortLaunches(){
+	//Define Buttons
+	var all = $('#all'),
+		confirmed = $('#confirmed'),
+		spacex = $('#spacex'),
+		ula = $('#ula'),
+		ariane = $('#arianespace'),
+		orbital = $('#orbital'),
+		russia = $('#russia'),
+		china = $('#china'),
+		india = $('#india'),
+		nasa = $('#nasa'),
+		iss = $('#iss'),
+		rocketlab = $('#rocketlab'),
+		eurokot =  $('#eurokot');
+
+	//Only show launches for the button thats clicked. Add on class to highlight selected provider
+	$('.sort-button').click(function(){
+		var clicked = $(this).attr('id');
+		$('.sort-button').removeClass('on');
+		$(this).addClass('on');
+		$('.launch').show();
+		$('.launch').not('.' + clicked).toggle();
+	});
+	
+	//All button shows all launches 
+	$('#all').click(function(){
+		$('.launch').show();
+	});
+
+}
+

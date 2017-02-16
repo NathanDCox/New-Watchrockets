@@ -9,7 +9,8 @@
 
 body {
   margin: 0;
-  padding: 0; }
+  padding: 0;
+  font-family: "niveau-grotesk", sans-serif; }
 
 #container {
   width: 100%;
@@ -18,10 +19,35 @@ body {
 .tar {
   text-align: right; }
 
+.sort-launches {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; }
+  .sort-launches button {
+    margin: 0 10px;
+    font-size: 1rem;
+    padding: 7px 10px 5px 10px;
+    border: none;
+    background-color: #DFE4E9;
+    color: #0F2555;
+    border: 1px solid #0F2555;
+    border-radius: 3px;
+    outline: none;
+    cursor: pointer; }
+    .sort-launches button:hover {
+      background-color: #0F2555;
+      color: #DFE4E9; }
+
+button.on {
+  color: #fff;
+  background-color: #0F2555; }
+
 .launches {
   display: flex;
   justify-content: space-around;
-  flex-wrap: wrap; }
+  flex-wrap: wrap;
+  max-width: 1600px;
+  margin: 0 auto; }
   .launches .launch {
     display: flex;
     flex-wrap: wrap;
@@ -41,8 +67,17 @@ body {
       font-size: 0.8rem;
       width: 60%; }
     .launches .launch .webcast {
-      font-size: 0.8rem;
       width: 40%; }
+      .launches .launch .webcast.noVid {
+        font-size: 0.8rem; }
+      .launches .launch .webcast a {
+        text-decoration: none;
+        color: #e6e6e6; }
+        .launches .launch .webcast a:hover {
+          color: #B5C1DC; }
+      .launches .launch .webcast a img {
+        height: 1rem;
+        margin-right: 0.5rem; }
     .launches .launch h3 {
       margin: 5px 0;
       padding: 0;
