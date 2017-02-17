@@ -78,7 +78,6 @@ function getLaunches(data){
 		}else{
 			agencyClass = agency.substring(0, agency.indexOf(' '));
 		}
-		console.log(agencyClass);
 
 		//Format Webcast Link
 		if(data.launches[i].vidURLs.length){
