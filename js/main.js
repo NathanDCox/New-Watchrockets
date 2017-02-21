@@ -5,7 +5,7 @@ String.prototype.indexOfEnd = function(string) {
 }
 
 $.ajax({
-	url: 'https://launchlibrary.net/1.2/launch?next=50&mode=verbose',
+	url: 'https://launchlibrary.net/1.2/launch?next=150&mode=verbose',
 	data: {
 		format: 'json'
 	},
@@ -17,19 +17,21 @@ function getLaunches(data){
 	var launchString;
 	for(var i=0; i<data.launches.length; i++){
 		//Define Variables from Launch Library data
-		var currentYear = new Date().getFullYear().toString(),
-			agency,
+		var agency,
 			webcast,
 			status,
 			id = data.launches[i].id,
 			net = data.launches[i].net,
-			date = net.substring(0, net.indexOfEnd(currentYear)),
+			isonet = (data.launches[i].isonet).substring(0, 4),
+			date = net.substring(0, net.indexOfEnd(isonet)),
 			name = data.launches[i].name,
 			missionname = name.split(" | ");
 			rocket = missionname[0].replace(/Full Thrust/g, 'FT'),
 			mission = missionname[1],
 			pad = data.launches[i].location.pads[0].name;
 		
+
+
 		//Format Launch Agency
 		if(data.launches[i].rocket.agencies.length){
 			if(data.launches[i].rocket.agencies[0].name === 'Lockheed Martin'){
