@@ -5,7 +5,8 @@ String.prototype.indexOfEnd = function(string) {
 }
 
 $.ajax({
-	url: 'https://launchlibrary.net/1.2/launch?next=150&mode=verbose',
+	url: 'https://launchlibrary.net/1.2/launch?next=50&mode=verbose',
+	//url: 'https://launchlibrary.net/1.2/launch?startdate=2017-02-20&enddate=2017-02-23&mode=verbose',
 	data: {
 		format: 'json'
 	},
@@ -89,27 +90,61 @@ function getLaunches(data){
 		}
 
 		//define variables for time, formatted in user's timezone
-		var localTimeStart = new Date(data.launches[i].westamp * 1000);
-		var hr = localTimeStart.getHours();
-		var min = localTimeStart.getMinutes();
-		if(min<10) {
-			min='0'+min
-		}
-
-		//format launch window time
-		function window(hr, min){
-			if(data.launches[i].westamp === 0){
-				return 'TBD';
-			}else{
-				if(hr<12){
-					if(hr === 0){
-						return (hr+12) + ':' + min + ' am';
-					}else{
-						return hr + ':' + min + ' am';
-					}
-				}else {
-					return (hr-12) + ':' + min + ' pm';
+		var localTimeStart = new Date(data.launches[i].wsstamp * 1000);
+		var localTimeEnd = new Date(data.launches[i].westamp * 1000);
+		var starthr = localTimeStart.getHours();
+		var startmin = localTimeStart.getMinutes();
+		var endhr = localTimeEnd.getHours();
+		var endmin = localTimeEnd.getMinutes();
+		
+		function window() {
+			if(startmin<10) {
+				startmin='0'+startmin;
+			}
+			if(endmin<10) {
+				endmin='0'+endmin;
+			}
+			var openWindow, 
+				closeWindow;
+			
+			//determine openWindow value
+			if(starthr<12){
+				if(starthr === 0){
+					openWindow = (starthr+12) + ':' + startmin + ' am';
+				}else{
+					openWindow = starthr + ':' + startmin + ' am';
 				}
+			}else {
+				starthr = starthr-12;
+				if(starthr === 0) {
+					openWindow = '12' + ':' + startmin + ' pm';
+				}else {
+					openWindow = starthr + ':' + startmin + ' pm';
+				}
+			}
+
+			//determine closeWindow value
+			if(endhr<12){
+				if(endhr === 0){
+					closeWindow = (endhr+12) + ':' + endmin + ' am';
+				}else{
+					closeWindow = endhr + ':' + endmin + ' am';
+				}
+			}else {
+				endhr = endhr-12;
+				if(endhr === 0) {
+					closeWindow = '12' + ':' + endmin + ' pm';
+				}else {
+					closeWindow = endhr + ':' + endmin + ' pm';
+				}
+			}
+
+			if(data.launches[i].wsstamp === 0){
+				return 'TBD';
+			}else if(data.launches[i].wsstamp === data.launches[i].westamp) {
+				return 'Instantaneous: ' + openWindow;
+			}else {
+				return 'Window: ' + openWindow + ' - ' + closeWindow;
 			}
 		}
 
@@ -124,7 +159,7 @@ function getLaunches(data){
 		//Compile and append launch info
 		$('.launches').append('<section id="' + id + '" class="launch ' + status + ' ' + agencyClass.toLowerCase() + '"><div class="top-info"><p class="agency">'
 			+ agency + '</p>' + webcast + '</div><h3 class="rocket">' + rocket + '</h3><h3 class="mission tar">'
-			+ mission + '</h3><p class="date">' + date + '</p><p class="time tar">' + window(hr, min) + '</p><p class="pad">' + pad + '</p></section>');	
+			+ mission + '</h3><p class="date">' + date + '</p><p class="time tar">' + window() + '</p><p class="pad">' + pad + '</p></section>');	
 	}
 
 	//called after all launches displayed
