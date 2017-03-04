@@ -12,12 +12,6 @@ header {
   header .logo {
     max-width: 175px;
     width: 100%; }
-  header .beta {
-    color: white;
-    font-weight: bold;
-    position: absolute;
-    top: 1rem;
-    right: 8rem; }
 
 #text {
   animation: asds 0.1s;
