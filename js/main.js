@@ -5,7 +5,7 @@ String.prototype.indexOfEnd = function(string) {
 }
 
 $.ajax({
-	url: 'https://launchlibrary.net/1.2/launch?next=51&mode=verbose',
+	url: 'https://launchlibrary.net/1.2/launch?next=50&mode=verbose',
 	//url: 'https://launchlibrary.net/1.2/launch?startdate=2017-02-20&enddate=2017-02-23&mode=verbose',
 	data: {
 		format: 'json'
@@ -24,7 +24,7 @@ function getLaunches(data){
 			id = data.launches[i].id,
 			net = data.launches[i].net,
 			isonet = (data.launches[i].isonet).substring(0, 4),
-			date = net.substring(0, net.indexOfEnd(isonet)),
+			netDate = net.substring(0, net.indexOfEnd(isonet)),
 			name = data.launches[i].name,
 			missionname = name.split(" | ");
 			rocket = missionname[0].replace(/Full Thrust/g, 'FT'),
@@ -96,7 +96,23 @@ function getLaunches(data){
 		var startmin = localTimeStart.getMinutes();
 		var endhr = localTimeEnd.getHours();
 		var endmin = localTimeEnd.getMinutes();
+		var confDate = localTimeStart.getDate();
+		var monthArray = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
 		
+		//Configure launch date if confirmed, or show NET date
+		function date() {
+			if(data.launches[i].wsstamp === 0) {
+				return 'NET ' + netDate;
+			}else {
+				var month = localTimeStart.getMonth();
+				var day = localTimeStart.getDate();
+				var year = localTimeStart.getFullYear();
+
+				return monthArray[month] + ' ' + day + ', ' + year;
+			}
+		}
+
 		function window() {
 			if(startmin<10) {
 				startmin='0'+startmin;
@@ -159,7 +175,7 @@ function getLaunches(data){
 		//Compile and append launch info
 		$('.launches').append('<section id="' + id + '" class="launch ' + status + ' ' + agencyClass.toLowerCase() + '"><div class="top-info"><p class="agency">'
 			+ agency + '</p>' + webcast + '</div><h3 class="rocket">' + rocket + '</h3><h3 class="mission tar">'
-			+ mission + '</h3><p class="date">' + date + '</p><p class="time tar">' + window() + '</p><p class="pad">' + pad + '</p></section>');	
+			+ mission + '</h3><p class="date">' + date() + '</p><p class="time tar">' + window() + '</p><p class="pad">' + pad + '</p></section>');	
 	}
 
 	//called after all launches displayed
