@@ -43,6 +43,8 @@ function getLaunches(data){
 				agency = 'Orbital ATK';
 			}else if(data.launches[i].rocket.agencies[0].name === 'Khrunichev State Research and Production Space Center'){
 				agency = 'Russia';
+			}else if(data.launches[i].rocket.agencies[0].name === 'Progress State Research and Production Rocket Space Center'){
+				agency = 'Russia';
 			}else if(data.launches[i].rocket.agencies[0].name === 'EADS Astrium Space Transportation'){
 				agency = 'Arianespace';
 			}else if(data.launches[i].rocket.agencies[0].name === 'Avio S.p.A'){
