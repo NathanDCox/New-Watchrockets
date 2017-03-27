@@ -20,12 +20,8 @@ var datestamp = new Date(),
 
 	var url = 'https://launchlibrary.net/1.2/launch?startdate=' + lastYear + '&enddate=' + today +'&limit=100&mode=verbose';
 	console.log(url);
-
 $.ajax({
-	//url: 'https://launchlibrary.net/1.2/launch?next=50&mode=verbose',
 	url: url,
-
-	//url: 'https://launchlibrary.net/1.2/launch?startdate=2017-02-20&enddate=2017-02-23&mode=verbose',
 	data: {
 		format: 'json'
 	},
@@ -33,8 +29,10 @@ $.ajax({
 });
 
 function getLaunches(data){
+	data.launches.sort(function(a,b) {
+		return new Date(b.netstamp) - new Date(a.netstamp);
+	});
 	console.log(data);
-	var launchString;
 	for(var i=0; i<data.launches.length; i++){
 		//Define Variables from Launch Library data
 		var agency,
