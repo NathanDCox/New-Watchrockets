@@ -71,6 +71,11 @@ body {
 .tar {
   text-align: right; }
 
+h1 {
+  text-align: center;
+  color: #0F2555;
+  text-transform: uppercase; }
+
 .sort-launches {
   display: flex;
   flex-wrap: wrap;

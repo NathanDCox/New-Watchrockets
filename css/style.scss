@@ -93,6 +93,7 @@ header {
 }
 
 
+
 .net {
      background-color: $net;
 }
@@ -113,7 +114,11 @@ body{
 .tar {
      text-align: right;
 }
-
+h1 {
+  text-align: center;
+  color: $main;
+  text-transform: uppercase;
+}
 //Sort bar
 .sort-launches {
      display: flex;
