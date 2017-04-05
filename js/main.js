@@ -186,20 +186,6 @@ function getLaunches(data){
 
 //Sort launches by toggle buttons
 function sortLaunches(){
-	//Define Buttons
-	var all = $('#all'),
-		confirmed = $('#confirmed'),
-		spacex = $('#spacex'),
-		ula = $('#ula'),
-		ariane = $('#arianespace'),
-		orbital = $('#orbital'),
-		russia = $('#russia'),
-		china = $('#china'),
-		india = $('#india'),
-		nasa = $('#nasa'),
-		iss = $('#iss'),
-		rocketlab = $('#rocketlab'),
-		eurokot =  $('#eurokot');
 
 	//Only show launches for the button thats clicked. Add on class to highlight selected provider
 	$('.sort-button').click(function(){
