@@ -5,7 +5,7 @@ String.prototype.indexOfEnd = function(string) {
 }
 
 $.ajax({
-	url: 'https://launchlibrary.net/1.2/launch?next=50&mode=verbose',
+	url: 'https://launchlibrary.net/1.2/launch?next=150&mode=verbose',
 	//url: 'https://launchlibrary.net/1.2/launch?startdate=2017-02-20&enddate=2017-02-23&mode=verbose',
 	data: {
 		format: 'json'
